@@ -1,16 +1,16 @@
-with open("testi.txt") as f:
+import merenpohja
+
+with open("input.txt") as f:
     pohja = []
     for rivi in f:
-        pohja.append([kirjain for kirjain in rivi.rstrip()])
-        print(pohja)
+        pohja.append([int(kirjain) for kirjain in rivi.rstrip()])
 leveys = len(pohja[0])
 korkeus = len(pohja)
 
-def naapurit(ruudukko: list, leveys: int, korkeus: int) -> list:
-    palautettava = []
-    for y in range(korkeus):
-        for x in range(leveys):
-            if y != 0:
-                palautettava.append(ruudukko[y-1][x])
-            if y != korkeus - 1:
-                palautettava.append(ruudukko[y+1][x])
+riskipisteita = 0
+for y in range(korkeus):
+    for x in range(leveys):
+        if merenpohja.matala_paikka(pohja, x, y):
+            riskipisteita += pohja[y][x] + 1
+print(f"Riskipisteitä: {riskipisteita}")
+
